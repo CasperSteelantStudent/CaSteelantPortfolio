@@ -8,6 +8,8 @@
     margin: 0;
   }
   
+
+
   /* Header/logo Title */
   .header {
     padding: 80px;
@@ -111,3 +113,49 @@
       width: 100%;
     }
   }
+
+
+  footer {
+    background-color: #f2f2f2;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .left-list ul,
+  .right-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .left-list ul li,
+  .right-list ul li {
+    margin-bottom: 10px;
+  }
+  
+  .left-list a,
+  .right-list a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .left-list a:hover,
+  .right-list a:hover {
+    color: #555;
+  }
+
+  .right-list {
+    text-align: right;
+  }
+  
+  a:link { 
+    text-decoration: none; 
+    color:black ;
+  }
+
+  a:visited { text-decoration: none; }
+
+  a:hover { text-decoration: underline; }
+
+  a:active { text-decoration: none; }
