@@ -14,8 +14,8 @@
   .header {
     padding: 80px;
     text-align: center;
-    background: #1abc9c;
-    color: white;
+    background-image: url(/Photos/cool-background\(1\).png);
+    color: white; 
   }
   
   /* Increase the font size of the heading */
