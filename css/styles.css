@@ -16,12 +16,14 @@
     text-align: center;
     color: white;
     height:auto;
-    background: linear-gradient(0deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%); 
+    background: rgb(40, 40, 40); 
+    position: static;
   }
   
   /* Increase the font size of the heading */
   .header h1 {
     font-size: 40px;
+    position: absolute;
   }
   
   /* Style the top navigation bar */
@@ -76,6 +78,7 @@
     flex: 30%;
     background-color: #f1f1f1;
     padding: 20px;
+    height: auto;
   }
   
   /* Main column */
