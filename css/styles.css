@@ -6,6 +6,7 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    z-index:5;
   }
   
 
@@ -29,7 +30,7 @@
   /* Style the top navigation bar */
   .navbar {
     overflow: hidden;
-    background-color: #333;
+    background-color: #181818;
     position: fixed; /* Set the navbar to fixed position */
     width: 100%;
   }
@@ -69,6 +70,7 @@
     display: flex;
     -ms-flex-wrap: wrap; /* IE10 */
     flex-wrap: wrap;
+
   }
   
   /* Create two unequal columns that sits next to each other */
@@ -213,3 +215,21 @@
   .instagram-media {
     margin: 0 auto;
   } 
+
+  canvas {
+    display: block;
+    vertical-align: bottom;
+  }
+  
+  #particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background:scroll;
+    z-index:1;
+  }
+
+  #empty {
+    height: 300px;
+    background-color: #333;
+  }
