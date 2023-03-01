@@ -199,3 +199,17 @@
     cursor: pointer;
   }
 
+  .instagram-posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .instagram-post {
+    width: 31.3%;
+    margin-bottom: 20px;
+  }
+  
+  .instagram-media {
+    margin: 0 auto;
+  } 
