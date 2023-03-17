@@ -110,6 +110,8 @@ body {
   padding: 20px;
   text-align: center;
   background: #ddd;
+  position: relative;
+  z-index: 5;
 }
 
 /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
@@ -229,12 +231,32 @@ a:active {
   margin: 0 auto;
 }
 
+.progress {
+  height: 10px;
+  background-color: #ddd;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #575757;
+}
+
+ul{
+  list-style-type: none;
+}
+
+#job {
+  line-height: 30px;
+}
+
 canvas {
   display: block;
   vertical-align: bottom;
   position:relative;
   z-index: 4;
 }
+
 
 
 /* ---- particles.js container ---- */
