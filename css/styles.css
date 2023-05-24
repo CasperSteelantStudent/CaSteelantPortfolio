@@ -318,7 +318,7 @@ canvas {
 
 #Name {
   z-index: 3;
-  position: fixed ;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -498,6 +498,6 @@ div.desc {
   margin-bottom: 20px;
 }
 
-canvas {
-  display: block;
+iframe {
+  border: none;
 }
