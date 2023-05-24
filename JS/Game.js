@@ -171,7 +171,6 @@ class Robot {
 
 function setup() {
     transformsound = loadSound('Media/transform.wav');
-    energyball = loadImage('Media/EnergyBall.gif');
     createCanvas(600, 400);
     textAlign(CENTER);
     textSize(20);

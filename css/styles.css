@@ -497,3 +497,7 @@ div.desc {
   flex-basis: calc(33.33% - 20px);
   margin-bottom: 20px;
 }
+
+canvas {
+  display: block;
+}
