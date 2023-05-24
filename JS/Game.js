@@ -1,4 +1,5 @@
 let Enemies = [];
+let energyBalls = [];
 let posX, posY; // position of the object
 let velX = 5,
     velY = 5; // velocity of the object
@@ -33,12 +34,13 @@ class Enemy {
 
 
     display() {
+
         push();
         if (this.isCube) {
-            
-            // Draw cube
+            stroke(10);
             translate(this.posX, this.posY);
             rotate(this.angle);
+            //flowers
             scale(0.7);
             fill(this.color);
             rect(-this.size / 2, -this.size / 2, this.size, this.size);
@@ -82,9 +84,11 @@ class Enemy {
                 transformsound.play();
                 this.isCube = !this.isCube;
                 Score += 1;
+                let energyBall = new EnergyBall(x, y);
+                energyBalls.push(energyBall);
+                
             }
-
-        } 
+        }
     }
 }
 
@@ -170,6 +174,27 @@ class Robot {
     }
 }
 
+
+class EnergyBall {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = 50;
+        this.easing = 0.05;
+    }
+
+    update() {
+        let targetRadius = 0;
+        this.radius = lerp(this.radius, targetRadius, this.easing);
+    }
+
+    display() {
+        noStroke();
+        fill(0, 255, 0);
+        ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
+    }
+}
+
 function setup() {
     transformsound = loadSound('Media/transform.wav');
     createCanvas(600, 400);
@@ -191,22 +216,27 @@ function setup() {
 function draw() {
     background(220);
     push();
-    if (Score == floor(amount)) {
-        robot.display();
-        text('YOU LIVE!', 300, 170);
-        text('score: 42', 300, 190);  //if i were to implement an actual timer, it'd probably just keep track of the time that has passed and detract that from the maximum score, but 42 is funnier
+    if (Score == floor(amount)) {  //The score equals the amount of bombs inside the Enemies array
+        robot.display();            //gotta keep the robot on the screen, consistency or something
+        text('YOU LIVE!', 300, 170);   //positive affirmation and all that
+        text('score: 42', 300, 190);  //If I were to implement an actual timer, it'd probably just keep track of the time that has passed and detract that from the maximum score, but 42 is funnier
     }
     else {
         robot.display();
-        for (let i = 0; i <= amount - 1; i++) {
+        for (let i = 0; i <= amount - 1; i++) {     //this displays and updates all the bomb objects in the array that were created during setup with the class
             Enemies[i].update();
             Enemies[i].display();
+        }
+        for (let i = 0; i < energyBalls.length; i++) {
+            let energyBall = energyBalls[i];
+            energyBall.update();
+            energyBall.display();
         }
         fill(0);
         noStroke();
         text("you're being targeted by bombs", 300, 70);
         text("disarm the bombs by clicking on them", 300, 130);
-        fill(255,0,0);
+        fill(255, 0, 0);
         textStyle(BOLD);
         text("DON'T PANIC!", 300, 100);
     }
@@ -217,5 +247,4 @@ function mouseClicked() {
     for (let i = 0; i < amount; i++) {
         Enemies[i].onClick(mouseX, mouseY);
     }
-
-}
+}   
