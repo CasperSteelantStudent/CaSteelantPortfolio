@@ -8,6 +8,7 @@ let rotationSpeed = 0.1; // speed of rotation
 let Score = 0;      //The score equals the amount of bombs that were transformed
 let H2G2;
 let quotes; // Array to store the quotes
+let timer = 1500;
 
 class Enemy {
     constructor(posX, posY, velX, velY, size, color) {
@@ -164,7 +165,7 @@ class Robot {
         if (Score == floor(amount)) {  //The score equals the amount of bombs inside the Enemies array
             textAlign(LEFT);
             text("it's lying, you've only got " + Score, 300, 100);         //displays the actual score instead of the joke score
-        } else if (millis() >= amount * 1000) {       //Game Over trigger when time runs out
+        } else if (millis() >= amount * timer) {       //Game Over trigger when time runs out
             textAlign(LEFT);
             text(quotes.getColumn(column), 300,100);
         }
@@ -239,13 +240,14 @@ function draw() {
         text('YOU LIVE!', 300, 80);   //positive affirmation and all that
         text('score: 42', 300, 100);  //If I were to implement an actual timer, it'd probably just keep track of the time that has passed and detract that from the maximum score, but 42 is funnier
         return;
-    } else if (millis() >= amount * 1000) {     //game over when the tiemr reaches a set amount, depends on how many bombs are present
+    } else if (millis() >= amount * timer) {     //game over when the tiemr reaches a set amount, depends on how many bombs are present
         robot.display();
         textAlign(CENTER);
         fill(255, 0, 0);
         textStyle(BOLD);
         noStroke();
         text('YOU DIED!', 300, 80);   //tells the user he died
+        text('out of time', 300, 100);
     }
     else {
         robot.display();
