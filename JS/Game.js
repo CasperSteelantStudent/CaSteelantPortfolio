@@ -211,6 +211,7 @@ function preload() {
 }
 
 function setup() {
+    bg = loadImage('Photos/background.jpg');
     column = floor(random(0,quotes.getColumnCount()));  //gets a random column from the .csv file
     H2G2 = loadFont('Fonts/Tw Cen MT Std Ultra Bold.otf');
     transformsound = loadSound('Media/transform.wav');
@@ -232,7 +233,7 @@ function setup() {
 }
 
 function draw() {
-    background(220);
+    background(bg);
     push();
     if (Score == floor(amount)) {  //The score equals the amount of bombs inside the Enemies array
         robot.display();            //gotta keep the robot on the screen, consistency or something
@@ -260,7 +261,7 @@ function draw() {
             energyBall.update();
             energyBall.display();
         }
-        fill(0);
+        fill(255);
         noStroke();
         textAlign(CENTER);
         text("you're being targeted by bombs", 300, 70);
