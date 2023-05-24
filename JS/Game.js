@@ -35,6 +35,7 @@ class Enemy {
     display() {
         push();
         if (this.isCube) {
+            
             // Draw cube
             translate(this.posX, this.posY);
             rotate(this.angle);
