@@ -8,7 +8,10 @@ let rotationSpeed = 0.1; // speed of rotation
 let Score = 0;      //The score equals the amount of bombs that were transformed
 let H2G2;
 let quotes; // Array to store the quotes
-let timer = 1500;
+let timer = 1000;
+let explosion;
+let frameNumber = 0;
+let gameOver = false;
 
 class Enemy {
     constructor(posX, posY, velX, velY, size, color) {
@@ -68,6 +71,7 @@ class Enemy {
             rect(-this.size / 2 - 2, -this.size / 2 - 12, this.size / 2 + 10, 24);
             circle(-this.size / 2, -this.size / 2, this.size);
         }
+
         pop();
     }
 
@@ -167,7 +171,7 @@ class Robot {
             text("it's lying, you've only got " + Score, 300, 100);         //displays the actual score instead of the joke score
         } else if (millis() >= amount * timer) {       //Game Over trigger when time runs out
             textAlign(LEFT);
-            text(quotes.getColumn(column), 300,100);
+            text(quotes.getColumn(column), 300, 100);
         }
 
 
@@ -180,8 +184,6 @@ class Robot {
         for (let i = -1; i <= 1; i += 2) {
             triangle(x1 + i * 40, y, x1 + i * 12, y, x1 + i * 20, y + 9);   // Draw eyes, i makes the eyes -get drawn twice 
         }
-
-
     }
 }
 
@@ -208,13 +210,15 @@ class EnergyBall {
 function preload() {
     // Load the CSV file
     quotes = loadTable('Media/quotes.csv', 'csv');
+    bg = loadImage('Photos/background.jpg');
+    explosion = loadImage('Photos/explosion.gif'); H2G2 = loadFont('Fonts/Tw Cen MT Std Ultra Bold.otf');
+    H2G2 = loadFont('Fonts/Tw Cen MT Std Ultra Bold.otf');
+    transformsound = loadSound('Media/transform.wav');
+    explosionsound = loadSound('Media/explosionsound.wav');
 }
 
 function setup() {
-    bg = loadImage('Photos/background.jpg');
-    column = floor(random(0,quotes.getColumnCount()));  //gets a random column from the .csv file
-    H2G2 = loadFont('Fonts/Tw Cen MT Std Ultra Bold.otf');
-    transformsound = loadSound('Media/transform.wav');
+    column = floor(random(0, quotes.getColumnCount()));  //gets a random column from the .csv file
     timeStart = millis();           //keeps track of how long the player has been playing the game
     createCanvas(600, 400);
     textAlign(CENTER);
@@ -230,10 +234,12 @@ function setup() {
         Enemies[i].size = 50;
         Enemies[i].color = color(random(255), random(255), random(255));
     }
+
 }
 
 function draw() {
-    background(bg);
+    background(255);
+    image(bg, 0, 0, width, height);
     push();
     if (Score == floor(amount)) {  //The score equals the amount of bombs inside the Enemies array
         robot.display();            //gotta keep the robot on the screen, consistency or something
@@ -242,6 +248,7 @@ function draw() {
         text('score: 42', 300, 100);  //If I were to implement an actual timer, it'd probably just keep track of the time that has passed and detract that from the maximum score, but 42 is funnier
         return;
     } else if (millis() >= amount * timer) {     //game over when the tiemr reaches a set amount, depends on how many bombs are present
+        gameOver == true;
         robot.display();
         textAlign(CENTER);
         fill(255, 0, 0);
@@ -249,6 +256,13 @@ function draw() {
         noStroke();
         text('YOU DIED!', 300, 80);   //tells the user he died
         text('out of time', 300, 100);
+        explosionsound.play();
+        image(explosion,0,0, width, height);
+        frameNumber++;  //increases the frame number every frame
+        explosion.setFrame(floor(frameNumber)); //set GIF to new frame
+        if(frameNumber >= 30) {
+            explosionsound.stop();
+        }
     }
     else {
         robot.display();
@@ -280,3 +294,4 @@ function mouseClicked() {                       //when the mouse clicks on the s
         Enemies[i].onClick(mouseX, mouseY);
     }
 }   
+
