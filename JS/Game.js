@@ -8,7 +8,7 @@ let rotationSpeed = 0.1; // speed of rotation
 let Score = 0;      //The score equals the amount of bombs that were transformed
 let H2G2;
 let quotes; // Array to store the quotes
-let timer = 1000;
+let timer = 1500;
 let explosion;
 let frameNumber = 0;
 let gameOver = false;
