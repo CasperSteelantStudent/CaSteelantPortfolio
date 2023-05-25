@@ -12,6 +12,8 @@ let timer = 1500;
 let explosion;
 let frameNumber = 0;
 let gameOver = false;
+let explosionSoundPlayed = false;
+let levelclearPlayed = false;
 
 class Enemy {
     constructor(posX, posY, velX, velY, size, color) {
@@ -185,6 +187,20 @@ class Robot {
             triangle(x1 + i * 40, y, x1 + i * 12, y, x1 + i * 20, y + 9);   // Draw eyes, i makes the eyes -get drawn twice 
         }
     }
+
+    victory() {
+        if (!levelclearPlayed) {
+          levelclearsound.play();
+          levelclearPlayed = true;
+        }
+      }
+
+    gameover() {
+        if (!explosionSoundPlayed) {
+          explosionsound.play();
+          explosionSoundPlayed = true;
+        }
+      }
 }
 
 class EnergyBall {
@@ -215,6 +231,7 @@ function preload() {
     H2G2 = loadFont('Fonts/Tw Cen MT Std Ultra Bold.otf');
     transformsound = loadSound('Media/transform.wav');
     explosionsound = loadSound('Media/explosionsound.wav');
+    levelclearsound = loadSound('Media/levelclear.mp3');
 }
 
 function setup() {
@@ -242,13 +259,14 @@ function draw() {
     image(bg, 0, 0, width, height);
     push();
     if (Score == floor(amount)) {  //The score equals the amount of bombs inside the Enemies array
+        robot.victory();            //triggers victory function/sound
         robot.display();            //gotta keep the robot on the screen, consistency or something
         textAlign(CENTER);
         text('YOU LIVE!', 300, 80);   //positive affirmation and all that
         text('score: 42', 300, 100);  //If I were to implement an actual timer, it'd probably just keep track of the time that has passed and detract that from the maximum score, but 42 is funnier
         return;
     } else if (millis() >= amount * timer) {     //game over when the tiemr reaches a set amount, depends on how many bombs are present
-        gameOver == true;
+        robot.gameover();                       //triggers gameover sound/function
         robot.display();
         textAlign(CENTER);
         fill(255, 0, 0);
@@ -256,13 +274,10 @@ function draw() {
         noStroke();
         text('YOU DIED!', 300, 80);   //tells the user he died
         text('out of time', 300, 100);
-        explosionsound.play();
         image(explosion,0,0, width, height);
         frameNumber++;  //increases the frame number every frame
         explosion.setFrame(floor(frameNumber)); //set GIF to new frame
-        if(frameNumber >= 30) {
-            explosionsound.stop();
-        }
+        return;
     }
     else {
         robot.display();
